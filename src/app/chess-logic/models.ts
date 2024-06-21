@@ -1,4 +1,4 @@
-export enum Color{
+export enum Color {
   White,
   Black
 }
@@ -7,6 +7,7 @@ export type Coords = {
   x: number;
   y: number;
 }
+
 // imenovanje figura prema Forsyth-Edwards Notation notaciji, vise na linku: https://www.chess.com/terms/fen-chess
 export enum FENChar {
   WhitePawn = "P",
@@ -25,7 +26,7 @@ export enum FENChar {
 
 export const pieceImagePaths: Readonly<Record<FENChar, string>> = {
   [FENChar.WhitePawn]: "assets/pieces/beli pešak.svg",
-  [FENChar.WhiteKnight]: "assets/pieces/beli kralj.svg",
+  [FENChar.WhiteKnight]: "assets/pieces/beli konj.svg",
   [FENChar.WhiteBishop]: "assets/pieces/beli lovac.svg",
   [FENChar.WhiteRook]: "assets/pieces/beli top.svg",
   [FENChar.WhiteQueen]: "assets/pieces/bela kraljica.svg",
@@ -36,4 +37,6 @@ export const pieceImagePaths: Readonly<Record<FENChar, string>> = {
   [FENChar.BlackRook]: "assets/pieces/crni top.svg",
   [FENChar.BlackQueen]: "assets/pieces/crna kraljica.svg",
   [FENChar.BlackKing]: "assets/pieces/crni kralj.svg"
-}
+};
+
+export type SafeSquares = Map<string, Coords[]>;
