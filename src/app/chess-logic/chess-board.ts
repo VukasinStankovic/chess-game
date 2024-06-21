@@ -70,4 +70,10 @@ export class ChessBoard {
       return row.map(piece => piece instanceof Piece ? piece.fenChar : null)
     })
   }
+
+  public static isSquareDark(x: number, y: number): boolean {
+    return x % 2 === 0 && y % 2 === 0 || x % 2 === 1 && y % 2 === 1;
+  }
+
+  
 }

@@ -22,3 +22,18 @@ export enum FENChar {
   BlackQueen = "q",
   BlackKing = "k",
 }
+
+export const pieceImagePaths: Readonly<Record<FENChar, string>> = {
+  [FENChar.WhitePawn]: "assets/pieces/beli pešak.svg",
+  [FENChar.WhiteKnight]: "assets/pieces/beli kralj.svg",
+  [FENChar.WhiteBishop]: "assets/pieces/beli lovac.svg",
+  [FENChar.WhiteRook]: "assets/pieces/beli top.svg",
+  [FENChar.WhiteQueen]: "assets/pieces/bela kraljica.svg",
+  [FENChar.WhiteKing]: "assets/pieces/beli kralj.svg",
+  [FENChar.BlackPawn]: "assets/pieces/crni pešak.svg",
+  [FENChar.BlackKnight]: "assets/pieces/crni konj.svg",
+  [FENChar.BlackBishop]: "assets/pieces/crni lovac.svg",
+  [FENChar.BlackRook]: "assets/pieces/crni top.svg",
+  [FENChar.BlackQueen]: "assets/pieces/crna kraljica.svg",
+  [FENChar.BlackKing]: "assets/pieces/crni kralj.svg"
+}
