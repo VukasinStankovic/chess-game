@@ -147,6 +147,7 @@ export class ChessBoard {
         if (!piece || piece.color !== this._playerColor) continue;
 
         const pieceSafeSquares: Coords[] = [];
+
         for (const {x: dx, y: dy} of piece.directions) {
           let newX: number = x + dx;
           let newY: number = y + dy;
@@ -168,13 +169,15 @@ export class ChessBoard {
           }
 
           if (piece instanceof Pawn || piece instanceof Knight || piece instanceof King) {
-            if (this.isPositionSafeAfterMove(piece, x, y, newX, newY)) pieceSafeSquares.push({x: newX, y: newY});
+            if (this.isPositionSafeAfterMove(piece, x, y, newX, newY))
+              pieceSafeSquares.push({x: newX, y: newY});
           } else {
             // ovde koristimo while zato sto neke figure mogu da se krecu vise od jednog kvadrata
             while (this.areCoordsValid(newX, newY)) {
               newPiece = this.chessBoard[newX][newY];
               if (newPiece && newPiece.color === piece.color) break;
-              if (this.isPositionSafeAfterMove(piece, x, y, newX, newY)) pieceSafeSquares.push({x: newX, y: newY});
+              if (this.isPositionSafeAfterMove(piece, x, y, newX, newY))
+                pieceSafeSquares.push({x: newX, y: newY});
 
               if (newPiece !== null) break;
 
@@ -184,10 +187,32 @@ export class ChessBoard {
           }
         }
 
-        if (pieceSafeSquares.length) safeSquares.set(x + "," + y, pieceSafeSquares);
+        if (pieceSafeSquares.length)
+          safeSquares.set(x + "," + y, pieceSafeSquares);
 
       }
     }
     return safeSquares;
+  }
+
+  public move(prevX: number, prevY: number, newX: number, newY: number): void {
+    if(!this.areCoordsValid(prevX, prevY) || !this.areCoordsValid(newX, newY)) return;
+    const piece: Piece | null = this.chessBoard[prevX][prevY];
+    if(!piece || piece.color !== this._playerColor) return;
+
+    const pieceSafeSquares: Coords[]|undefined  = this._safeSquares.get(prevX + "," + prevY);
+    if(!pieceSafeSquares || !pieceSafeSquares.find(coords => coords.x === newX && coords.y === newY)) throw new Error("Square is not safe");
+
+    if((piece instanceof Pawn || piece instanceof Rook || piece instanceof King) && !piece.hasMoved) {
+      piece.hasMoved = true;
+    }
+
+    this.chessBoard[prevX][prevY] = null;
+    this.chessBoard[newX][newY] = piece;
+
+    this._playerColor = this._playerColor === Color.White ? Color.Black : Color.White;
+    this._safeSquares = this.findSafeSquares();
+
+
   }
 }
